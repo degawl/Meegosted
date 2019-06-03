@@ -5,16 +5,73 @@ if(mysqli_connect_errno()) {
     echo "Failed to connect" . mysqli_errno();
 }
 
-$fname = "";
-$lname = "";
-$email = "";
-$password = "";
-$password2 = "";
-$date = "";
+$fname       = "";
+$lname       = "";
+$email       = "";
+$password    = "";
+$password2   = "";
+$date        = "";
 $error_array = "";
 
 if(isset($_POST['reg_button'])) {
+    $fname = strip_tags($_POST['reg_fname']);
+    $fname = str_replace(' ', '', $fname);
+    $fname = ucfirst(strtolower($fname));
 
+    $lname = strip_tags($_POST['reg_lname']);
+    $lname = str_replace(' ', '', $lname);
+    $lname = ucfirst(strtolower($lname));
+
+    $email = strip_tags($_POST['reg_email']);
+    $email = str_replace(' ', '', $email);
+    $email = ucfirst(strtolower($email));
+
+    $password  = strip_tags($_POST['reg_password']);
+    $password2 = strip_tags($_POST['reg_password2']);
+    
+    $date = date("Y-m-d");
+
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        // Manual email "foo@bar.com" check
+        $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+
+        // Checking if email is already in database
+        $email_check_query = "SELECT email FROM users WHERE email='$email'";
+        $email_check = mysqli_query($con, $email_check_query);
+
+        // Count number of row returned
+        $num_rows = mysqli_num_rows($email_check);
+
+        // Determine based on num of rows if email was in database
+        if ($num_rows > 0) {
+            echo "Email already in use";
+        } else {
+            echo "No rows found";
+        }
+
+    } else {
+        echo "Incorrect format";
+    }
+
+    if (strlen($fname) > 25 || strlen($fname) < 2) {
+        echo "Your first name should be between 2 and 25 characters";
+    }
+
+    if (strlen($lname) > 25 || strlen($lname) < 2) {
+        echo "Your last name should be between 2 and 25 characters\n";
+    }
+
+    if ($password == $password2) {
+        if(preg_match('/[^A-Za-z0-9]/', $password)) {
+            echo "Your password can only contain Latin characters and numbers.";
+        }
+    } else {
+        echo "Passwords dont match\n";
+    }
+
+    if (strlen($password) > 30 || (strlen($password) < 5)) {
+        echo "Your password must be between 5 and 30 characters";
+    }
 }
 
 ?>
