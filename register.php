@@ -12,7 +12,7 @@ $email       = "";
 $password    = "";
 $password2   = "";
 $date        = "";
-$error_array = "";
+$error_array = array();
 
 if(isset($_POST['reg_button'])) {
     $fname = strip_tags($_POST['reg_fname']);
@@ -50,33 +50,33 @@ if(isset($_POST['reg_button'])) {
 
         // Determine based on num of rows if email was in database
         if ($num_rows > 0) {
-            echo "Email already in use";
+            array_push($error_array, "Email already in use<br>");
         } else {
-            echo "No rows found";
+            array_push($error_array, "No rows found<br>");
         }
 
     } else {
-        echo "Incorrect format";
+        array_push($error_array, "Incorrect email format<br>");
     }
 
     if (strlen($fname) > 25 || strlen($fname) < 2) {
-        echo "Your first name should be between 2 and 25 characters";
+        array_push($error_array, "Your first name should be between 2 and 25 characters<br>");
     }
 
     if (strlen($lname) > 25 || strlen($lname) < 2) {
-        echo "Your last name should be between 2 and 25 characters\n";
+        array_push($error_array, "Your last name should be between 2 and 25 characters<br>");
     }
 
     if ($password == $password2) {
         if(preg_match('/[^A-Za-z0-9]/', $password)) {
-            echo "Your password can only contain Latin characters and numbers.";
+            array_push($error_array, "Your password can only contain Latin characters and numbers<br>");
         }
     } else {
-        echo "Passwords dont match\n";
+        array_push($error_array, "Passwords dont match<br>");
     }
 
     if (strlen($password) > 30 || (strlen($password) < 5)) {
-        echo "Your password must be between 5 and 30 characters";
+        array_push($error_array, "Your password must be between 5 and 30 characters<br>");
     }
 }
 
