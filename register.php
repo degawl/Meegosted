@@ -6,7 +6,7 @@ if(mysqli_connect_errno()) {
     echo "Failed to connect" . mysqli_errno();
 }
 
-$fname= "";
+$fname       = "";
 $lname       = "";
 $email       = "";
 $password    = "";
@@ -18,12 +18,10 @@ if(isset($_POST['reg_button'])) {
     $fname = strip_tags($_POST['reg_fname']);
     $fname = str_replace(' ', '', $fname);
     $fname = ucfirst(strtolower($fname));
-    $_SESSION['reg_fname'] = $fname; // Storing first name into session varaible
 
     $lname = strip_tags($_POST['reg_lname']);
     $lname = str_replace(' ', '', $lname);
     $lname = ucfirst(strtolower($lname));
-    $_SESSION['reg_lname'] = $lname; // Storing last name into session varaible
 
 
     $email = strip_tags($_POST['reg_email']);
@@ -91,6 +89,43 @@ if(isset($_POST['reg_button'])) {
             $username = $username . "_" . $i;
             $check_username = mysqli_query($con, $check_username_query);
         }
+
+        $rand = rand(1, 10);
+
+        switch ($rand) {
+            case 1:
+                $profile_pic = "assets/images/profile_pics/defaults/head_amethyst.png";
+                break;
+            case 2:
+                $profile_pic = "assets/images/profile_pics/defaults/head_alizarin.png";
+                break;
+            case 3:
+                $profile_pic = "assets/images/profile_pics/defaults/head_belize_hole.png";
+                break;
+            case 4:
+                $profile_pic = "assets/images/profile_pics/defaults/head_carrot.png";
+                break;
+            case 5:
+                $profile_pic = "assets/images/profile_pics/defaults/head_deep_blue.png";
+                break;  
+            case 6:
+                $profile_pic = "assets/images/profile_pics/defaults/head_emerald.png";
+                break;  
+            case 7:
+                $profile_pic = "assets/images/profile_pics/defaults/head_green_sea.png";
+                break; 
+            case 8:
+                $profile_pic = "assets/images/profile_pics/defaults/head_nephritis.png";
+                break;   
+            case 9:
+                $profile_pic = "assets/images/profile_pics/defaults/head_pete_river.png";
+                break; 
+            case 10:
+                $profile_pic = "assets/images/profile_pics/defaults/head_pomegranate.png";
+                break;   
+            default:
+                $profile_pic = "assets/images/profile_pics/defaults/head_wet_asphalt.png";
+        }
     }
 }
 
@@ -104,18 +139,16 @@ if(isset($_POST['reg_button'])) {
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
+        <style>
+            input { 
+                text-align: left; 
+            }
+        </style>
     </head>
     <body>
 
         <form action="register.php" method="POST">
-            <input type="text" name="reg_fname" placeholder="First Name" 
-            value="
-                <?php 
-                if (isset($_SESSION['reg_fname'])) {
-                    echo $_SESSION['reg_fname'];
-                }
-                ?>"
-            required>
+            <input type="text" name="reg_fname" placeholder="First Name" required>
             <br>
             <?php 
                 if (in_array("Your first name should be between 2 and 25 characters<br>", $error_array)) {
@@ -123,14 +156,7 @@ if(isset($_POST['reg_button'])) {
                 }
             ?>
 
-            <input type="text" name="reg_lname" placeholder="Last Name"             
-            value="
-                <?php 
-                if (isset($_SESSION['reg_lname'])) {
-                    echo $_SESSION['reg_lname'];
-                }
-                ?>"
-            required>
+            <input type="text" name="reg_lname" placeholder="Last Name" required>
             <br>
             <?php 
                 if (in_array("Your last name should be between 2 and 25 characters<br>", $error_array)) {
