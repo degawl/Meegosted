@@ -84,6 +84,13 @@ if(isset($_POST['reg_button'])) {
         $username = strtolower($fname . "_" . $lname);
         $check_username_query = "SELECT username FROM users WHERE username=''$username'";
         $check_username = mysqli_query($con, $check_username_query);
+
+        $i = 0;
+        while (mysqli_num_rows($check_username) != 0) { // If username exists
+            $i++;
+            $username = $username . "_" . $i;
+            $check_username = mysqli_query($con, $check_username_query);
+        }
     }
 }
 
