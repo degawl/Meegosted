@@ -241,4 +241,6 @@
     left: auto;
     right: 5px;
   }
-  
+  .error_container {
+      text-align: center;
+  }

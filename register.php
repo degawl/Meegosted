@@ -15,18 +15,20 @@ require 'includes/form_handlers/login_handler.php';
     <div class="cont">
         <div class="form sign-in">
         <h2>Welcome back,</h2>
-
-        <?php if(in_array("Email or password was incorrect<br>", $error_array)) echo "Email or password was incorrect<br>";?>
-        <?php if(in_array("Your first name must be between 2 and 25 characters<br>", $error_array)) echo "Your first name must be between 2 and 25 characters<br>"; ?>
-        <?php if(in_array("Your last name must be between 2 and 25 characters<br>", $error_array)) echo "Your last name must be between 2 and 25 characters<br>"; ?>
-        <?php if(in_array("<span style='color: #14C800;'>Your account has been created!</span><br>", $error_array)) echo "<span style='color: #14C800;'>Your account has been created!</span><br>"; ?>
-        <?php if(in_array("Email already in use<br>", $error_array)) echo "Email already in use<br>"; 
-                else if(in_array("Invalid email format<br>", $error_array)) echo "Invalid email format<br>";
-                else if(in_array("Emails don't match<br>", $error_array)) echo "Emails don't match<br>"; ?>
-        <?php if(in_array("Your passwords do not match<br>", $error_array)) echo "Your passwords do not match<br>"; 
-                else if(in_array("Your password can only contain latin alphabet characters or numbers<br>", $error_array)) echo "Your password can only contain latin alphabet characters or numbers<br>";
-                else if(in_array("Your password must be betwen 5 and 30 characters<br>", $error_array)) echo "Your password must be betwen 5 and 30 characters<br>"; ?>
-
+        <div class="error_container">
+            <br>
+            <?php if(in_array("Email or password was incorrect<br>", $error_array)) echo "Email or password was incorrect<br>";?>
+            <?php if(in_array("Your first name must be between 2 and 25 characters<br>", $error_array)) echo "Your first name must be between 2 and 25 characters<br>"; ?>
+            <?php if(in_array("Your last name must be between 2 and 25 characters<br>", $error_array)) echo "Your last name must be between 2 and 25 characters<br>"; ?>
+            <?php if(in_array("<span style='color: #14C800;'>Your account has been created!</span><br>", $error_array)) echo "<span style='color: #14C800;'>Your account has been created!</span><br>"; ?>
+            <?php if(in_array("Email already in use<br>", $error_array)) echo "Email already in use<br>"; 
+                    else if(in_array("Invalid email format<br>", $error_array)) echo "Invalid email format<br>";
+                    else if(in_array("Emails don't match<br>", $error_array)) echo "Emails don't match<br>"; ?>
+            <?php if(in_array("Your passwords do not match<br>", $error_array)) echo "Your passwords do not match<br>"; 
+                    else if(in_array("Your password can only contain latin alphabet characters or numbers<br>", $error_array)) echo "Your password can only contain latin alphabet characters or numbers<br>";
+                    else if(in_array("Your password must be betwen 5 and 30 characters<br>", $error_array)) echo "Your password must be betwen 5 and 30 characters<br>"; ?>
+            <br>
+        </div>
             <form action="register.php" method="POST">
                 <label>
                     <span>Email</span>
