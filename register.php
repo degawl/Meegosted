@@ -2,7 +2,6 @@
 require 'config/config.php';
 require 'includes/form_handlers/register_handler.php';
 require 'includes/form_handlers/login_handler.php';
-
 ?>
 
 
@@ -12,22 +11,25 @@ require 'includes/form_handlers/login_handler.php';
     <link rel="stylesheet" href="assets/css/register_style.css">
 </head>
 <body>
+
+    <?php
+        if (isset($_POST['register_button'])) {
+            echo "
+                <script>
+                document.addEventListener('DOMContentLoaded', function(){ 
+                    document.querySelector('.cont').classList.toggle('s--signup');
+                }, false);
+                </script>
+            ";
+        }
+    ?>
+
     <div class="cont">
         <div class="form sign-in">
         <h2>Welcome back,</h2>
         <div class="error_container">
             <br>
             <?php if(in_array("Email or password was incorrect<br>", $error_array)) echo "Email or password was incorrect<br>";?>
-            <?php if(in_array("Your first name must be between 2 and 25 characters<br>", $error_array)) echo "Your first name must be between 2 and 25 characters<br>"; ?>
-            <?php if(in_array("Your last name must be between 2 and 25 characters<br>", $error_array)) echo "Your last name must be between 2 and 25 characters<br>"; ?>
-            <?php if(in_array("<span style='color: #14C800;'>Your account has been created!</span><br>", $error_array)) echo "<span style='color: #14C800;'>Your account has been created!</span><br>"; ?>
-            <?php if(in_array("Email already in use<br>", $error_array)) echo "Email already in use<br>"; 
-                    else if(in_array("Invalid email format<br>", $error_array)) echo "Invalid email format<br>";
-                    else if(in_array("Emails don't match<br>", $error_array)) echo "Emails don't match<br>"; ?>
-            <?php if(in_array("Your passwords do not match<br>", $error_array)) echo "Your passwords do not match<br>"; 
-                    else if(in_array("Your password can only contain latin alphabet characters or numbers<br>", $error_array)) echo "Your password can only contain latin alphabet characters or numbers<br>";
-                    else if(in_array("Your password must be betwen 5 and 30 characters<br>", $error_array)) echo "Your password must be betwen 5 and 30 characters<br>"; ?>
-            <br>
         </div>
             <form action="register.php" method="POST">
                 <label>
@@ -66,7 +68,20 @@ require 'includes/form_handlers/login_handler.php';
                 </div>
             </div>
             <div class="form sign-up">
-                <h2>Time to feel like home,</h2>
+                <h2>Let's get you signed up,</h2>
+                <div class="error_container">
+                    <br>
+                    <?php if(in_array("Your first name must be between 2 and 25 characters<br>", $error_array)) echo "Your first name must be between 2 and 25 characters<br>"; ?>
+                    <?php if(in_array("Your last name must be between 2 and 25 characters<br>", $error_array)) echo "Your last name must be between 2 and 25 characters<br>"; ?>
+                    <?php if(in_array("Email already in use<br>", $error_array)) echo "Email already in use<br>"; 
+                        else if(in_array("Invalid email format<br>", $error_array)) echo "Invalid email format<br>";?>
+                    <?php if(in_array("Your passwords do not match<br>", $error_array)) echo "Your passwords do not match<br>"; 
+                        else if(in_array("Your password can only contain latin alphabet characters or numbers<br>", $error_array)) echo "Your password can only contain latin alphabet characters or numbers<br>";
+                        else if(in_array("Your password must be betwen 5 and 30 characters<br>", $error_array)) echo "Your password must be betwen 5 and 30 characters<br>"; ?>
+                        <?php if(in_array("<span style='color: #14C800;'>Your account has been created!</span><br>", $error_array)) echo "<span style='color: #14C800;'>Your account has been created!</span><br>"; ?>
+                    <br>
+                </div>
+                
                 <form action="register.php" method="POST">
                 <label>
                     <span>First Name</span>
@@ -77,7 +92,6 @@ require 'includes/form_handlers/login_handler.php';
                     ?>" required>
                 </label>
                 
-
                 <label>
                     <span>Last Name</span>
                     <input type="text" name="reg_lname" value="<?php 
@@ -105,7 +119,6 @@ require 'includes/form_handlers/login_handler.php';
                     <span>Confirm Password</span>
                     <input type="password" name="reg_password2" required>
                 </label>
-                
 
                 <button class="submit">
                     <input type="submit" name="register_button" value="Register">
@@ -116,8 +129,6 @@ require 'includes/form_handlers/login_handler.php';
     </div>
     
     
-	
-
     <script src="assets/js/register.js"></script>
 </body>
 </html>
