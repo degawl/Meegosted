@@ -4,3 +4,9 @@
     background-color: #55e2cb;
     border-bottom: 5px solid red;
 }
+
+.custom-logo {
+    font-family: 'Righteous', cursive;
+    font-size: 2em;
+    margin-right: 1em;
+}
